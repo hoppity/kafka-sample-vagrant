@@ -1,0 +1,32 @@
+zookeeper:
+  image: confluent/zookeeper
+  ports:
+    - "2181:2181"
+kafka:
+  image: confluent/kafka
+  ports:
+    - "9092:9092"
+  links:
+    - "zookeeper:zookeeper"
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: 192.168.33.10
+schemaregistry:
+  image: confluent/schema-registry
+  ports:
+    - "8081:8081"
+  links:
+    - "zookeeper:zookeeper"
+    - "kafka:kafka"
+restproxy:
+  image: confluent/rest-proxy
+  ports:
+    - "8082:8082"
+  links:
+    - "zookeeper:zookeeper"
+    - "schemaregistry:schema-registry"
+kafkamanager:
+  image: sheepkiller/kafka-manager
+  ports:
+    - "9000:9000"
+  environment:
+    ZK_HOSTS: "192.168.33.10:2181"
