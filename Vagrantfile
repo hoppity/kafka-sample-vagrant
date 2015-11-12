@@ -17,6 +17,13 @@ builds = {
       { guest: 8082, host: 8082 },
       { guest: 9000, host: 9000 }
     ]
+  },
+  'redis' => {
+    compose: "machines/redis/docker-compose.yml",
+    ip: "192.168.33.20",
+    forwarded_ports: [
+      { guest: 6379, host: 6379 }
+    ]
   }
 }
 
