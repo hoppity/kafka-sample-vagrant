@@ -2,3 +2,10 @@ redis:
   image: redis
   ports:
     - "6379:6379"
+redisCommander:
+  image: tenstartups/redis-commander
+  command: --redis-host redis
+  links:
+    - redis:redis
+  ports:
+    - "8081:8081"
